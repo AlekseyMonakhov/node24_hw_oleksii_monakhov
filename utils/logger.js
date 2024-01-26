@@ -1,8 +1,8 @@
 function logger(moduleName) {
     return {
-        info: (message) => console.log(`${moduleName}: ${message}`),
-        warn: (message) => console.warn(`${moduleName}: WARNING: ${message}`),
-        error: (message) => console.error(`${moduleName}: ERROR: ${message}`)
+        info: (...reason) => console.log(`${moduleName}: LOG ${reason}`),
+        warn: (...reason) => console.warn(`${moduleName}: WARNING: ${reason}`),
+        error: (...reason) => console.error(`${moduleName}: ERROR: ${reason}`)
     };
 }
 
