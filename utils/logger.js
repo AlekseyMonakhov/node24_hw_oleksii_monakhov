@@ -1,6 +1,7 @@
 const colorize = require('./colorize');
-const { logLevel } = require('config');
+const config = require('config');
 
+const logLevel = config.get('logLevel');
 
 function logger(moduleName) {
     return {

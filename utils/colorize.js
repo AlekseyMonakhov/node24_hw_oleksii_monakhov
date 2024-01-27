@@ -1,5 +1,7 @@
 const colors = require('colors/safe');
-const { colorsEnabled } = require('config');
+const config = require('config');
+
+const colorsEnabled = config.get('colorsEnabled');
 
 function colorize(text, color) {
     if (colorsEnabled === 0) return text;
