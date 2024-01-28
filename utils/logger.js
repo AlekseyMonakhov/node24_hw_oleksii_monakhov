@@ -5,6 +5,9 @@ const logLevel = config.get('logLevel');
 
 function logger(moduleName) {
     return {
+        error: (...reason) => {
+            console.error(colorize(moduleName + " ERROR:", 'red'), ...reason);
+        },
         info: (...reason) => {
             if (logLevel === 'info') {
                 console.log(colorize(moduleName + " LOG:", 'gray'), ...reason);
@@ -13,11 +16,6 @@ function logger(moduleName) {
         warn: (...reason) => {
             if (logLevel === 'info' || logLevel === 'warn') {
                 console.warn(colorize(moduleName + " WARNING:", 'yellow'), ...reason);
-            }
-        },
-        error: (...reason) => {
-            if (logLevel === 'info' || logLevel === 'warn' || logLevel === 'error') {
-                console.error(colorize(moduleName + " ERROR:", 'red'), ...reason);
             }
         }
     };
