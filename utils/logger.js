@@ -1,9 +1,25 @@
+const colorize = require('./colorize');
+const config = require('config');
+
+const logLevel = config.get('logLevel');
+
 function logger(moduleName) {
     return {
-        info: (...reason) => console.log(`${moduleName}: LOG `, ...reason),
-        warn: (...reason) => console.warn(`${moduleName}: WARNING: `, ...reason),
-        error: (...reason) => console.error(`${moduleName}: ERROR: `, ...reason)
+        error: (...reason) => {
+            console.error(colorize(moduleName + " ERROR:", 'red'), ...reason);
+        },
+        info: (...reason) => {
+            if (logLevel === 'info') {
+                console.log(colorize(moduleName + " LOG:", 'gray'), ...reason);
+            }
+        },
+        warn: (...reason) => {
+            if (logLevel === 'info' || logLevel === 'warn') {
+                console.warn(colorize(moduleName + " WARNING:", 'yellow'), ...reason);
+            }
+        }
     };
+
 }
 
 module.exports = logger;
