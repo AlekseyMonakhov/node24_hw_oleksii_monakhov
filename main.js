@@ -1,9 +1,10 @@
 require('dotenv').config();
 
-const logger = require('./utils/logger')('main');
 
-logger.info('the script is running!');
+const fyleSync = require('./utils/file_sync');
 
-logger.warn('this is a warning');
 
-logger.error('this is an error');
+fyleSync.start()
+
+
+
