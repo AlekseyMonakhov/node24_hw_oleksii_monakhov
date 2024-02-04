@@ -1,7 +1,7 @@
 const copy = require('../utils/copy');
 
 
-class FyleSync {
+class FileSync {
     constructor(srcFolder, destFolder, logger) {
         this.srcFolder = srcFolder;
         this.destFolder = destFolder;
@@ -14,4 +14,4 @@ class FyleSync {
 }
 
 
-module.exports = FyleSync;
+module.exports = FileSync;
