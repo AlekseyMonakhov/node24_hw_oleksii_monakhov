@@ -3,18 +3,23 @@ const logger = require('./utils/logger')('server.js');
 
 
 const server = http.createServer((req, res) => {
-    let statusCode = 200;
 
     if (req.url === '/healthcheck' && req.method === 'GET') {
-        res.statusCode = statusCode;
+        res.statusCode = 200;
+
+        const message = `${req.method} ${req.url} ${res.statusCode}`;
+
+        logger.info(message);
         res.end('healthcheck passed');
     } else {
-        statusCode = 404;
-        res.statusCode = statusCode;
+
+        res.statusCode = 404;
+
+        const message = `${req.method} ${req.url} ${res.statusCode}`;
+
+        logger.warn(message);
         res.end('404 Not Found');
     }
-    const message = `${req.method} ${req.url} ${statusCode}`;
-    logger.info(message);
 });
 
 
