@@ -1,14 +1,10 @@
 require('dotenv').config();
+const config = require('config');
+const port = config.get('port');
+
+const server = require('./server');
 
 
-const logger = require('./utils/logger')('main.js');
-
-
-let counter = 1;
-
-while (counter < 100) {
-    logger.info('Counter is at', counter);
-    logger.error('Counter is at', counter);
-    logger.warn('Counter is at', counter);
-    counter++;
-}
+server.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+});
