@@ -18,18 +18,14 @@ router.post(
     ],
     validation,
     (req, res) => {
-        const currentUsersCount = Object.keys(users);
-        const id = currentUsersCount.length ?
-            +currentUsersCount[currentUsersCount.length - 1] + 1
-            :
-            1;
+        const user = {
+            ...req.body,
+            id: Date.now()
+        };
 
-        const user = req.body;
-
-        users[id] = user;
+        users.push(user);
 
         res.status(201).json({
-            id: id,
             ...user
         });
     }
@@ -49,12 +45,11 @@ router.get(
     ],
     validation,
     (req, res) => {
-        const id = req.params.id;
-        const user = users[id];
+        const id = Number(req.params.id);
+        const user = users.find((u) => u.id === id);
 
         if (user) {
             res.json({
-                id,
                 ...user
             });
         } else {
@@ -72,11 +67,11 @@ router.delete(
     ],
     validation,
     (req, res) => {
-        const id = req.params.id;
-        const user = users[id];
+        const id = Number(req.params.id);
+        const userIndex = users.findIndex((u) => u.id === id);
 
-        if (user) {
-            delete users[id];
+        if (userIndex >= 0) {
+            users.splice(userIndex, 1);
             res.status(204).end();
         } else {
             res.status(404).json({ message: 'User not found' });
