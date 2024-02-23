@@ -72,7 +72,7 @@ router.delete(
 
         if (user) {
             delete users[id];
-            res.json({
+            res.status(204).json({
                 message: 'User ' + id + ' deleted'
             });
         } else {
