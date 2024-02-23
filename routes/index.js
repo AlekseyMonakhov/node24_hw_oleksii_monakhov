@@ -18,13 +18,18 @@ router.post(
     ],
     validation,
     (req, res) => {
-        const currentUsersCount = Object.keys(users).length + 1;
+        const currentUsersCount = Object.keys(users);
+        const id = currentUsersCount.length ?
+            +currentUsersCount[currentUsersCount.length - 1] + 1
+            :
+            1;
+
         const user = req.body;
 
-        users[currentUsersCount] = user;
+        users[id] = user;
 
         res.status(201).json({
-            id: currentUsersCount,
+            id: id,
             ...user
         });
     }
@@ -72,9 +77,7 @@ router.delete(
 
         if (user) {
             delete users[id];
-            res.status(204).json({
-                message: 'User ' + id + ' deleted'
-            });
+            res.status(204).end();
         } else {
             res.status(404).json({ message: 'User not found' });
         }
